@@ -16,7 +16,7 @@ import {
 
 const router = express.Router();
 
-router.route("/fetchuser").get(authUser, fetchUser);
+router.route("/fetch").get(authUser, fetchUser);
 
 router.route("/signup").post(signup);
 
@@ -28,9 +28,7 @@ router.route("/login").post(login);
 
 router.route("/logout").post(logout);
 
-router.route("/forgotpassword").post(forgotPassword);
-
-router.route("/deleteaccount").delete(deleteAccount);
+router.route("/reset").post(forgotPassword);
 
 router.route("/searchuser").get(authUser, searchUser);
 

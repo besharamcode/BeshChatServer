@@ -17,18 +17,20 @@ const __dirname = path.dirname(__filename);
 const port = process.env.PORT || 8000;
 
 const corsOptions = {
-  origin: ["http://localhost:5173","https://besharamchat.netlify.app"],
+  origin: "*",
+  // origin: ["http://localhost:8081", "exp://192.168.1.15:8081"],
   Credential: true,
 };
 
 const staticPath = path.join(__dirname, "../public");
 
 app
-  .use(cors(corsOptions))
+  // .use(cors(corsOptions))
   .use(express.json({ limit: "16kb" }))
   .use(express.urlencoded({ extended: true }))
   .use(express.static(staticPath))
   .use("/images/:imagename", express.static("/images"))
+  .use("/chatapi/auth", authRoute)
   .use("/chatapi/auth", authRoute)
   .use("/chatapi/request", requestRoute)
   .use("/chatapi/chat", chatRoute);
@@ -40,7 +42,7 @@ app.get("/", (req, res) => {
 httpServer.listen(port, () => {
   try {
     dbConnect().catch((err) => console.log(err));
-    console.log(`Besharam chat server listing on port: ${port}`);
+    console.log(`Special chat server listing on port: ${port}`);
   } catch (error) {
     console.log(error);
   }
